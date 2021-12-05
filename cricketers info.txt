@@ -1,0 +1,247 @@
+#include <stdio.h>
+#include <string.h>
+int n;
+struct Cricketer_info
+{
+   char cricketer_name[50];
+   int age;
+   char country[15];
+   char category[15];
+   int odi;
+   int twenty_twenty;
+   float average_batting_score;
+   int wickets;
+};
+ 
+void menu(struct Cricketer_info c[n]);
+void getdata(struct Cricketer_info c[n]);
+void putdata(struct Cricketer_info c[n]);
+void batsman(struct Cricketer_info c[n]);
+void highest_avg(struct Cricketer_info c[n]);
+void bowler(struct Cricketer_info c[n]);
+void max_wickets(struct Cricketer_info c[n]);
+void player_details(struct Cricketer_info c[n]);
+ 
+ 
+int main()
+{
+   struct Cricketer_info cricketer[n];
+ 
+   menu(cricketer);
+   return 0;
+}
+ 
+void menu(struct Cricketer_info c[n])
+{
+   int choice;
+ 
+   printf("\nEnter 1 - input players details :- ");
+   printf("\nEnter 2 - display all players details :- ");
+   printf("\nEnter 3 - display batsman of country : ");
+   printf("\nEnter 4 - display batsman with highest average batting score :- ");
+   printf("\nEnter 5 - display bowlers of  country :- ");
+   printf("\nEnter 6 - display bowler with maximum wickets :- ");
+   printf("\nEnter 7 - display details of  player :- ");
+   printf("\nEnter 8 - exit :- ");
+ 
+   printf("\n\nEnter your choice : ");
+   scanf("%d", &choice);
+ 
+   switch (choice)
+   {
+   case 1:
+       getdata(c);
+       break;
+   case 2:
+       putdata(c);
+       break;
+   case 3:
+       batsman(c);
+       break;
+   case 4:
+       highest_avg(c);
+       break;
+   case 5:
+       bowler(c);
+       break;
+   case 6:
+       max_wickets(c);
+       break;
+   case 7:
+       player_details(c);
+       break;
+   case 8:
+       printf("\nExit\n");
+       break;
+   default:
+       printf("\nInvalid Output\n");
+       menu(c);
+       break;
+   }
+}
+ 
+void getdata(struct Cricketer_info c[n])
+{
+   printf("\nHow many cricketers data do you want to take : ");
+   scanf("%d", &n);
+ 
+   for (int i = 0; i < n; i++)
+   {
+       printf("\nEnter the details of cricketer no. %d :-", i + 1);
+ 
+       printf("\nName : ");
+       scanf("%s", c[i].cricketer_name);
+       printf("Age : ");
+       scanf("%d", &c[i].age);
+       printf("Country : ");
+       scanf("%s", c[i].country);
+       printf("Category : ");
+       scanf("%s", c[i].category);
+       printf("ODI played : ");
+       scanf("%d", &c[i].odi);
+       printf("20-20 played : ");
+       scanf("%d", &c[i].twenty_twenty);
+       printf("Average Score : ");
+       scanf("%f", &c[i].average_batting_score);
+       printf("Total no. of wickets taken : ");
+       scanf("%d", &c[i].wickets);
+ 
+       printf("\n");
+   }
+   menu(c);
+}
+ 
+void putdata(struct Cricketer_info c[n])
+{
+
+  printf("name\tage\t\tcountry\t\tcategory\tODI\t\tT_20\twickets\t  avg_score\n");
+   for (int i = 0; i < n; i++)
+   {
+       printf("%s\t%d\t\t%s\t\t%s\t\t%d\t\t%d\t\t%d\t\t%.2f\n",c[i].cricketer_name,c[i].age,c[i].country,c[i].category,c[i].odi,c[i].twenty_twenty,c[i].wickets,c[i].average_batting_score);
+    }
+ 
+   
+   
+ 
+   menu(c);
+   }
+ 
+ 
+ 
+void batsman(struct Cricketer_info c[n])
+{
+   char intput_country[15];
+   int country_batsman_count = 0;
+ 
+   printf("\nEnter country : ");
+   scanf("%s", intput_country);
+ 
+   for (int i = 0; i < n; i++)
+   {
+       if (strcmp(c[i].country, intput_country) == 0 && strcmp(c[i].category, "batsman") == 0)
+       {
+           country_batsman_count++;
+           printf("\n%d) Cricketer Name = %s , Country = %s , category = %s", country_batsman_count, c[i].cricketer_name, c[i].country, c[i].category);
+       }
+   }
+ 
+   printf("\nNo. of batsman in %s = %d", intput_country, country_batsman_count);
+ 
+   menu(c);
+}
+ 
+void highest_avg(struct Cricketer_info c[n])
+{
+   float highest_avg_score = 0;
+ 
+   for (int i = 0; i < n; i++)
+   {
+       if (highest_avg_score <= c[i].average_batting_score)
+       {
+           highest_avg_score = c[i].average_batting_score;
+       }
+   }
+ 
+   for (int i = 0; i < n; i++)
+   {
+       if (highest_avg_score == c[i].average_batting_score)
+       {
+           printf("\n\nBatsman with highest average score = %s , average score = %f", c[i].cricketer_name, c[i].average_batting_score);
+       }
+   }
+ 
+   menu(c);
+}
+ 
+void bowler(struct Cricketer_info c[n])
+{
+   char intput_country[15];
+   int country_bowler_count = 0;
+ 
+   printf("\nEnter country : ");
+   scanf("%s", intput_country);
+ 
+   for (int i = 0; i < n; i++)
+   {
+       if (strcmp(c[i].country, intput_country) == 0 && strcmp(c[i].category, "bowler") == 0)
+       {
+           country_bowler_count++;
+           printf("\n%d) Cricketer Name = %s , Country = %s , category = %s", country_bowler_count, c[i].cricketer_name, c[i].country, c[i].category);
+       }
+   }
+ 
+   printf("\nNo. of bowler in %s = %d", intput_country, country_bowler_count);
+ 
+   if (country_bowler_count == 0)
+   {
+       printf("\nNo bowler belong to %s", intput_country);
+   }
+   menu(c);
+}
+ 
+void max_wickets(struct Cricketer_info c[n])
+{
+   int maximum_wickets = 0;
+ 
+   for (int i = 0; i < n; i++)
+   {
+       if (maximum_wickets <= c[i].wickets)
+       {
+           maximum_wickets = c[i].wickets;
+       }
+   }
+ 
+   for (int i = 0; i < n; i++)
+   {
+       if (maximum_wickets == c[i].wickets)
+       {
+           printf("\n\nBowler that has taken maximum wickets = %s , Total wickets = %d", c[i].cricketer_name, c[i].wickets);
+       }
+   }
+   menu(c);
+}
+ 
+void player_details(struct Cricketer_info c[n])
+{
+   char cricket_name[50];
+   printf("\nEnter  player name : ");
+   scanf("%s", cricket_name);
+ 
+   for (int i = 0; i < n; i++)
+   {
+       if (strcmp(c[i].cricketer_name, cricket_name) == 0)
+       {
+           printf("\nName : %s", c[i].cricketer_name);
+           printf("\nAge : %d", c[i].age);
+           printf("\nCountry : %s", c[i].country);
+           printf("\nCategory : %s", c[i].category);
+           printf("\nNo. of ODI played : %d", c[i].odi);
+           printf("\nNo. of 20-20 played : %d", c[i].twenty_twenty);
+           printf("\nAverage Score : %f", c[i].average_batting_score);
+           printf("\nTotal no. of wickets taken : %d", c[i].wickets);
+ 
+           printf("\n");
+       }
+   }
+   menu(c);
+}
